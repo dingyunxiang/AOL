@@ -12,13 +12,13 @@ public class Sort {
         int[] array1 = {1};
 
         //冒泡
-        sort.select(array);
-        sort.select(array1);
+        int[] num = sort.mergeSort(array,0,8);
+//        sort.mergeSort(array1,0,0);
 
         //
 
 
-        for(int i:array)
+        for(int i:num)
             System.out.print(i+"-");
         System.out.println();
         for(int i:array1){
@@ -66,14 +66,78 @@ public class Sort {
     }
 
     //插入排序
+    //插入排序的思路就是维护一个已经排好序的数组,再遍历剩下的数,将其插入已经排好序的数组,,即可将整个数组排序
     public void insert(int[] nums){
         int n = nums.length;
         if(nums == null || nums.length<0) return;
 
-
+        for(int i=1;i<n;i++){
+            for(int j=i;j>0;j--){
+                if(nums[j]<nums[j-1]){
+                    int temp = nums[j-1];
+                    nums[j-1] = nums[j];
+                    nums[j] = temp;
+                }
+                else
+                    break;
+            }
+        }
 
 
     }
+
+
+    //归并排序
+    //利用递归的思想,将函数分成有序的数组,再将两个数组合并˚
+    public int[] mergeSort(int[] nums,int low,int high){
+
+
+
+        int mid = (low+high) / 2;
+
+        if(low<high){
+            mergeSort(nums,low,mid);
+
+            mergeSort(nums,mid+1,high);
+
+            merge(nums,low,high,mid);
+        }
+
+        return nums;
+    }
+
+    //h-head t-tail
+    public void merge(int[] nums,int low,int high,int mid){
+
+        int[] temp = new int[high - low +1];
+
+        int i = low;
+        int j = mid + 1;
+        int k = 0;
+
+       while(i <= mid && j<=high){
+            if(nums[i]<nums[j]){
+                temp[k++] = nums[i++];
+            }
+           else
+                temp[k++] = nums[j++];
+        }
+
+
+        while(i<=mid){
+            temp[k++] = nums[i++];
+        }
+
+        while(j<=high){
+            temp[k++] = nums[j++];
+        }
+
+        for(int k1 = 0;k1<temp.length;k1++){
+            nums[k1+low] = temp[k1];
+        }
+    }
+
+
 
 
 
