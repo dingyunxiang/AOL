@@ -12,13 +12,13 @@ public class Sort {
         int[] array1 = {1};
 
         //冒泡
-        int[] num = sort.mergeSort(array,0,8);
+        sort.QSort(array,0,8);
 //        sort.mergeSort(array1,0,0);
 
         //
 
 
-        for(int i:num)
+        for(int i:array)
             System.out.print(i+"-");
         System.out.println();
         for(int i:array1){
@@ -88,8 +88,8 @@ public class Sort {
 
 
     //归并排序
-    //利用递归的思想,将函数分成有序的数组,再将两个数组合并˚
-    public int[] mergeSort(int[] nums,int low,int high){
+    //利用递归的思想,将函数分成有序的数组,再将两个数组合并
+    public void mergeSort(int[] nums,int low,int high){
 
 
 
@@ -103,7 +103,6 @@ public class Sort {
             merge(nums,low,high,mid);
         }
 
-        return nums;
     }
 
     //h-head t-tail
@@ -135,6 +134,41 @@ public class Sort {
         for(int k1 = 0;k1<temp.length;k1++){
             nums[k1+low] = temp[k1];
         }
+    }
+
+
+    public void QSort(int[] nums,int low,int high){
+        System.out.print("success");
+        if(low <= high){
+            return ;
+        }
+
+
+        int first = low;
+        int last = high;
+        //设定转轴
+        int key = nums[first];
+
+
+        while(first<last){
+            while(first<last && nums[last]<=key){
+                last--;
+            }
+
+            nums[first] = nums[last];
+
+            while(first<last && nums[first]>=key){
+                first++;
+            }
+
+            nums[last] = nums[first];
+        }
+
+        nums[first] = key;
+
+        QSort(nums,low,first-1);
+        QSort(nums,first+1,high);
+
     }
 
 
