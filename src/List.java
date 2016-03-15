@@ -3,53 +3,123 @@
  */
 public class List {
 
-    public class Node{
-        int num;
-        void setNum(int i){
-            num = i;
+    public static class ListNode{
+        int value;
+        //ListNode head = new ListNode(1);
+        ListNode next;
+        ListNode(int x){ value = x;}
+
+        public void addToTail(ListNode node){
+            ListNode index = this;
+            while(index.next != null){
+                index = index.next;
+            }
+            index.next = node;
         }
-        Node next;
-    }
 
-    public static void main(String args[]){
+        public void addToHead(ListNode node){
+            ListNode  index = this;
+            node.next = this.next;
+            this.next = node;
+            this.value = node.value;
+            node.value = index.value;
 
-        List l = new List();
-
-        //初始化链表
-        Node a[] = new Node[5];
-//        for(int i =0;i<4;i++){
-//            a[i].num = i;
-//            a[i].next = a[i+1];
-//        }
-        a[4].setNum(4);
-
-
-        //输出链表
-        for(Node node:a){
-            System.out.print(node.num+"-");
         }
-    }
 
 
-
-    public void addNode(Node head,int n,Node node){
-        if(head == null) return ;
-        Node p = head;
-        int  index = 0;
-        if(n==0) {
-            node.next = head;
-            head = node;
+        public boolean addNode(ListNode node,int num){
+            ListNode index = this;
+            int val = 0;
+            while(index!=null){
+                if(val==num){
+                    node.next = index.next;
+                    index.next = node;
+                    return true;
+                }
+                else{
+                    val++;
+                    index = index.next;
+                }
+            }
+            return false;
         }
-        while(p.next!=null)
-        {
-            index++;
-            if(index == n){
-                node.next = p.next.next;
-                p.next = node;
-                return ;
+
+
+        public ListNode search(int num){
+            ListNode index = this;
+            while(index!=null){
+                if(index.value == num){
+                    return index;
+                }
+                else{
+                    index = index.next;
+                }
+            }
+            return null;
+        }
+
+
+        //移除第几个
+        public boolean remove(int num){
+            ListNode  index = this;
+            int val = 0;
+            if(num == 0){
+
+
+                this.value = index.next.value;
+                this.next = index.next.next;
+                return true;
+
+            }
+
+            else if(num>0){
+                while(index!=null){
+                    if(val == num-1){
+                        index.next = index.next.next;
+                        return true;
+
+                    }
+                    else{
+                        val++;
+                        index = index.next;
+                    }
+                }
+            }
+
+
+
+            return false;
+        }
+
+
+        public void showAll(){
+            ListNode index = this;
+            while(index!=null) {
+                System.out.print(index.value + "-");
+                index = index.next;
             }
         }
+
     }
+
+
+    public static void main(String args[]){
+        ListNode head = new ListNode(1);
+        head.addToTail(new ListNode(2));
+        head.addToTail(new ListNode(5));
+        head.addToTail(new ListNode(10));
+
+
+//        head.addNode(new ListNode(4),5);
+        head.remove(0);
+//        ListNode search = head.search(10);
+//        System.out.println(search);
+        head.showAll();
+    }
+
+
+
+
 
 
 
