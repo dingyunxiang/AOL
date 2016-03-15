@@ -13,7 +13,7 @@ public class Sort {
 
         //冒泡
         sort.QSort(array,0,8);
-//        sort.mergeSort(array1,0,0);
+        sort.mergeSort(array1,0,0);
 
         //
 
@@ -138,8 +138,8 @@ public class Sort {
 
 
     public void QSort(int[] nums,int low,int high){
-        System.out.print("success");
-        if(low <= high){
+       // System.out.print("success");
+        if(low >= high){
             return ;
         }
 
@@ -151,13 +151,13 @@ public class Sort {
 
 
         while(first<last){
-            while(first<last && nums[last]<=key){
+            while(first<last && nums[last]>=key){
                 last--;
             }
 
             nums[first] = nums[last];
 
-            while(first<last && nums[first]>=key){
+            while(first<last && nums[first]<=key){
                 first++;
             }
 
